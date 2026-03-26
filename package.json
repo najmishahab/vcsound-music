@@ -4,7 +4,7 @@
   "description": "Aggregator Musik Viral PWA & Android App",
   "main": "index.html",
   "scripts": {
-    "build": "mkdir -p dist && cp -rv assets dist/ && cp *.html style.css app.js sw.js manifest.json robots.txt sitemap.xml app-ads.txt ads.txt dist/ && (cp vcmusic.apk dist/ || true)",
+    "build": "mkdir -p dist && (cp -rf assets dist/ || echo 'no assets') && cp index.html app.js style.css sw.js manifest.json robots.txt sitemap.xml app-ads.txt ads.txt dist/ && (cp *.html dist/ || true) && (cp vcmusic.apk dist/ || true)",
     "sync": "npm run build && npx cap sync android",
     "cap-init": "npx cap init VCMusic com.vcsound.app --web-dir dist",
     "open-android": "npx cap open android"
