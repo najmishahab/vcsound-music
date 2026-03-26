@@ -1,0 +1,10 @@
+node_modules/
+dist/
+android/
+.DS_Store
+*.apk
+cap-ads.txt
+manifest.json
+assets/
+# Keep dist for Vercel if it's a static site, but Vercel prefers root if package.json exists.
+# We'll allow dist for now if they want to deploy ONLY the dist.

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCMusic Admin - Dashboard Personal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #121212; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(31, 31, 31, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .accent-gradient { background: linear-gradient(135deg, #ec4899 0%, #06b6d4 100%); }
+    </style>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6047VHK70"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q6047VHK70');
+    </script>
+</head>
+<body class="p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent">VCMusic Admin</h1>
+                <p class="text-gray-400 text-sm mt-1">Monitoring Penggunaan & Aktivitas (Lokal)</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="sendTestEvent()" class="bg-pink-500/10 hover:bg-pink-500/20 text-pink-500 px-4 py-2 rounded-full transition-all text-sm border border-pink-500/20">Test GA4 Event</button>
+                <button onclick="location.reload()" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all text-sm border border-white/10">Refresh Data</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Quota Card -->
+            <div class="glass rounded-3xl p-6 shadow-xl">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-lg font-semibold text-gray-300">Estimasi Kuota YouTube</h2>
+                    <span class="text-[10px] bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded-md uppercase font-bold tracking-wider">Harian</span>
+                </div>
+                <div class="flex items-end gap-2 mb-2">
+                    <span id="quotaUnits" class="text-5xl font-black text-white">0</span>
+                    <span class="text-gray-500 mb-1">/ 10,000 unit</span>
+                </div>
+                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-4">
+                    <div id="quotaBar" class="h-full accent-gradient transition-all duration-1000" style="width: 0%"></div>
+                </div>
+                <p class="text-xs text-gray-500">Reset otomatis setiap tengah malam. Pencarian memakan 100 unit.</p>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="glass rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-300 mb-4">Konfigurasi App</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">GA4 ID:</span>
+                            <span class="font-mono text-pink-400">G-Q6047VHK70</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">YouTube Key:</span>
+                            <span class="font-mono text-cyan-400">AIzaSy...KYHmK8</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-500">Status Awal:</span>
+                            <span class="text-green-500 font-bold">Terhubung</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                    <a href="index.html" class="text-xs text-cyan-500 hover:text-cyan-400 flex items-center gap-1">
+                        Kembali ke App 
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="glass rounded-3xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold text-gray-300 mb-6">Log Aktivitas Terbaru</h2>
+            <div id="eventLog" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                <!-- Events will be injected here -->
+                <div class="text-center py-10 text-gray-600 italic">Belum ada aktivitas yang tercatat.</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script> <!-- Link to main app.js to use trackEvent -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            // Auto refresh every 5 seconds
+            setInterval(loadData, 5000);
+        });
+
+        function sendTestEvent() {
+            if (typeof trackEvent === 'function') {
+                trackEvent('admin_test_click', { status: 'manual_test' });
+                alert('Event "admin_test_click" telah dikirim! Silakan cek di GA4 Realtime.');
+            } else {
+                alert('Fungsi trackEvent tidak ditemukan. Pastikan app.js termuat.');
+            }
+        }
+
+        function loadData() {
+            // Load Quota
+            const quotaData = JSON.parse(localStorage.getItem('vcmusic_quota_stats') || '{"units":0}');
+            const units = quotaData.units || 0;
+            const percent = Math.min((units / 10000) * 100, 100);
+            
+            document.getElementById('quotaUnits').innerText = units.toLocaleString();
+            document.getElementById('quotaBar').style.width = percent + '%';
+
+            // Load Events
+            const log = JSON.parse(localStorage.getItem('vcmusic_event_log') || '[]');
+            const logContainer = document.getElementById('eventLog');
+            
+            if (log.length === 0) return;
+
+            logContainer.innerHTML = log.map(item => {
+                const time = new Date(item.timestamp).toLocaleTimeString('id-ID');
+                const dataStr = Object.entries(item.data || {}).map(([k, v]) => `${k}: ${v}`).join(', ');
+                
+                let iconColor = 'text-gray-500';
+                if (item.event === 'song_play') iconColor = 'text-pink-500';
+                if (item.event.includes('search')) iconColor = 'text-cyan-500';
+                if (item.event.includes('error')) iconColor = 'text-red-500';
+
+                return `
+                    <div class="flex gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+                        <div class="mt-1 ${iconColor}">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-sm text-gray-200">${item.event.toUpperCase()}</h4>
+                                <span class="text-[10px] text-gray-500">${time}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">${dataStr || 'No details'}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</body>
+</html>

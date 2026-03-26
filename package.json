@@ -1,0 +1,30 @@
+{
+  "name": "vcmusic-pwa",
+  "version": "1.0.0",
+  "description": "Aggregator Musik Viral PWA & Android App",
+  "main": "index.html",
+  "scripts": {
+    "build": "if not exist dist mkdir dist && xcopy /E /I /Y assets dist\\assets && copy /Y *.html dist\\ && copy /Y app.js dist\\ && copy /Y style.css dist\\ && copy /Y manifest.json dist\\ && copy /Y sw.js dist\\ && copy /Y robots.txt dist\\ && copy /Y sitemap.xml dist\\ && copy /Y app-ads.txt dist\\ && copy /Y ads.txt dist\\ && if exist vcmusic.apk copy /Y vcmusic.apk dist\\",
+    "sync": "npm run build && npx cap sync android",
+    "cap-init": "npx cap init VCMusic com.vcsound.app --web-dir dist",
+    "open-android": "npx cap open android"
+  },
+  "keywords": [
+    "music",
+    "pwa",
+    "android",
+    "capacitor"
+  ],
+  "author": "VCMusic Team",
+  "license": "MIT",
+  "dependencies": {
+    "@awesome-cordova-plugins/background-mode": "^9.1.2",
+    "@capacitor-community/admob": "^8.0.0",
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@ionic-native/core": "^5.36.0",
+    "cordova-plugin-background-mode": "^0.7.3",
+    "cordova-plugin-device": "^3.0.0"
+  }
+}

@@ -1,0 +1,2 @@
+# AdMob App-Ads.txt - DISABLED FOR STEALTH MODE
+# To re-enable, paste the pub-id line back here later.

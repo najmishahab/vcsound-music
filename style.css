@@ -1,0 +1,118 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.category-card {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.category-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+.category-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 100%);
+}
+.category-card .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.75rem;
+    z-index: 10;
+    width: 100%;
+}
+
+.song-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+.song-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+}
+.song-item.active {
+    background: rgba(230, 0, 35, 0.08); /* Tint color */
+    border-color: rgba(230, 0, 35, 0.2);
+}
+
+.playing-bars {
+    display: flex;
+    gap: 3px;
+    height: 14px;
+    align-items: flex-end;
+}
+.playing-bars .bar {
+    width: 3px;
+    background: #ec4899; /* pink-500 to match gradient */
+    animation: bounce 0.6s ease infinite alternate;
+    border-radius: 2px;
+}
+.playing-bars .bar:nth-child(2) { animation-delay: 0.15s; }
+.playing-bars .bar:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+    0% { height: 20%; background: #ec4899; }
+    100% { height: 100%; background: #06b6d4; }
+}
+
+/* Safe area inset for PWA on modern phones */
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Scrubbing Hit Area Improvement */
+#progressBarContainer {
+    position: relative;
+    height: 4px; /* default visual height */
+}
+
+#progressBarContainer::before {
+    content: '';
+    position: absolute;
+    top: -15px; /* increase grab area 15px up */
+    bottom: -15px; /* increase grab area 15px down */
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+/* Liked Heart Animations */
+.list-like-btn {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.list-like-btn:active {
+    transform: scale(1.4);
+}
+.list-like-btn:hover {
+    filter: drop-shadow(0 0 5px rgba(236, 72, 153, 0.3));
+}
+

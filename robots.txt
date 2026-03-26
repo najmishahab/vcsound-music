@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vcsound.xyz/sitemap.xml
