@@ -621,13 +621,13 @@ async function showInterstitial() {
     */
     
     const adContainer = document.getElementById('musicTransition');
-    adContainer.classList.remove('hidden');
-    adContainer.classList.add('flex');
+    adContainer.classList.remove('opacity-0', 'pointer-events-none');
+    adContainer.classList.add('opacity-100', 'pointer-events-auto');
     
-    // Auto-hide after 5 seconds to ensure impression counts and UX is respected
+    // Auto-hide after 5 seconds
     setTimeout(() => {
-        adContainer.classList.add('hidden');
-        adContainer.classList.remove('flex');
+        adContainer.classList.add('opacity-0', 'pointer-events-none');
+        adContainer.classList.remove('opacity-100', 'pointer-events-auto');
     }, 5000);
 }
 
