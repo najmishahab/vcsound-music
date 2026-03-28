@@ -1,2 +1,2 @@
-# Google AdSense Ads.txt - DISABLED FOR STEALTH MODE
-# To re-enable, paste the pub-id line back here later.
+# Google AdSense Ads.txt
+google.com, pub-5834734306217651, DIRECT, f08c47fec0942fa0

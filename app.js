@@ -1,11 +1,11 @@
 const CATEGORIES = [
     { id: 'liked', name: 'Favorit Saya', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: '' },
-    { id: 'tiktok', name: 'Puncak TikTok Viral', bg: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu tiktok viral terbaru full bass' },
-    { id: 'pop', name: 'Pop Indo Hits Terkini', bg: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu pop indonesia terbaru hits terpopuler' },
-    { id: 'galau', name: 'Lagu Galau & Patah Hati', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu galau indonesia sedih bikin nangis' },
-    { id: 'koplo', name: 'Dangdut Koplo Joss', bg: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'dangdut koplo terbaru viral full senyum' },
-    { id: 'cafe', name: 'Akustik Cafe Nusantara', bg: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu akustik cafe indonesia santai' },
-    { id: 'dj', name: 'DJ Remix Jedag Jedug', bg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'dj remix jedag jedug full bass parah' }
+    { id: 'trending', name: 'Video Trending', bg: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'populer hits video terbaru' },
+    { id: 'pop', name: 'Indo Pop Hits', bg: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu pop indonesia terbaru hits' },
+    { id: 'calm', name: 'Relaksasi & Fokus', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu santai untuk fokus' },
+    { id: 'koplo', name: 'Vibe Nusantara', bg: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'musik nusantara terbaru viral' },
+    { id: 'acoustic', name: 'Akustik Santai', bg: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu akustik indonesia santai' },
+    { id: 'edm', name: 'Electronic Beats', bg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'electronic dance music hits' }
 ];
 
 const YOUTUBE_API_KEY = 'AIzaSyBoSx_gsaxJOtPBPhWiI9cEyXilwKYHmK8';
@@ -70,8 +70,8 @@ function updateQuotaUsage(units = 1) {
 // Initialize YouTube API manually or via callback
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
-        height: '1',
-        width: '1',
+        height: '150',
+        width: '250',
         playerVars: {
             'playsinline': 1,
             'controls': 0,
@@ -79,7 +79,9 @@ function onYouTubeIframeAPIReady() {
             'rel': 0,
             'fs': 0,
             'modestbranding': 1,
-            'origin': window.location.origin
+            'origin': window.location.origin,
+            'autoplay': 1,
+            'iv_load_policy': 3
         },
         events: {
             'onReady': onPlayerReady,
@@ -604,31 +606,15 @@ function setupEventListeners() {
 }
 
 async function showInterstitial() {
-    /* 
-    if (window.Capacitor && Capacitor.isNativePlatform()) {
-        try {
-            const { AdMob } = Capacitor.Plugins;
-            await AdMob.prepareInterstitial({
-                adId: 'ca-app-pub-5834734306217651/4252235306',
-                isTesting: false
-            });
-            await AdMob.showInterstitial();
-            return;
-        } catch (e) {
-            console.warn("Native Interstitial failed, falling back to web UI", e);
-        }
-    }
-    */
-    
     const adContainer = document.getElementById('musicTransition');
     adContainer.classList.remove('opacity-0', 'pointer-events-none');
     adContainer.classList.add('opacity-100', 'pointer-events-auto');
     
-    // Auto-hide after 5 seconds
+    // Auto-hide after 3 seconds (clean loading experience)
     setTimeout(() => {
         adContainer.classList.add('opacity-0', 'pointer-events-none');
         adContainer.classList.remove('opacity-100', 'pointer-events-auto');
-    }, 5000);
+    }, 3000);
 }
 
 async function playShuffle() {

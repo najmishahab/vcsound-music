@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VCMusic - Aggregator Musik Viral TikTok & Dangdut Koplo Terbaru</title>
-    <meta name="description" content="Streaming lagu viral TikTok terbaru, Pop Indonesia, dan Dangdut Koplo bass joss secara gratis. Nikmati fitur background play di PWA & Android APK tanpa gangguan.">
+    <title>VCMusic - Discover & Organize Your Favorite Playlists</title>
+    <meta name="description" content="Explore trending music videos and create your personal digital playlists. Lightweight, fast, and easy to access on PWA and Android.">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vcsound.xyz">
-    <meta property="og:title" content="VCMusic - Aggregator Musik Viral TikTok & Dangdut Terbaru">
-    <meta property="og:description" content="Dengarkan lagu viral terbaru gratis. Mendukung background play, lofi music, dan instalasi PWA/APK resmi.">
+    <meta property="og:title" content="VCMusic - Personal Video Playlist Manager">
+    <meta property="og:description" content="Organize and discover trending music videos easily with VCMusic.">
     <meta property="og:image" content="https://vcsound.xyz/assets/icons/icon-512.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://vcsound.xyz">
-    <meta property="twitter:title" content="VCMusic - Aggregator Musik Viral">
-    <meta property="twitter:description" content="Koleksi musik viral terlengkap dengan fitur background play.">
+    <meta property="twitter:title" content="VCMusic - Playlist Discovery">
+    <meta property="twitter:description" content="Your personal hub for discovering trending videos and music.">
     
     <meta name="theme-color" content="#121212">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -50,7 +51,7 @@
         "price": "0",
         "priceCurrency": "IDR"
       },
-      "description": "Aggregator musik viral terlengkap. Dapatkan akses ke lagu TikTok, Pop, dan Dangdut terbaru secara gratis dengan fitur background play.",
+      "description": "Discover and organize your favorite video playlists with VCMusic. High performance and user-friendly design.",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -59,16 +60,9 @@
     }
     </script>
     
-    <!-- Google AdSense (DISABLED FOR STEALTH)
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5834734306217651" crossorigin="anonymous"></script>
-    -->
     
-    <!-- Alternative Ads Placeholder (Adsterra) -->
-    <div id="altAdsHead">
-        <!-- Adsterra Social Bar -->
-        <script src="https://pl28985842.profitablecpmratenetwork.com/98/b4/d8/98b4d808faf57f6859be780a5572d90e.js"></script>
-    </div>
-
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q6047VHK70"></script>
     <script>
@@ -83,11 +77,11 @@
     <header class="p-4 flex justify-between items-center bg-darkBackground/80 backdrop-blur-md z-10 sticky top-0">
         <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent select-none">VCMusic</h1>
         <div class="flex gap-2">
-            <a href="vcmusic.apk" download id="downloadApkBtn" class="text-xs bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-3 py-1.5 rounded-full transition-all font-bold shadow-lg flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414L20.355 18.1734L12 26.5284L3.645 18.1734L6.477 15.3414L12 20.8644L17.523 15.3414Z" transform="translate(0 -6)"/></svg>
-                <span>Unduh APK</span>
+            <a href="https://saweria.co/vcmusic" target="_blank" class="text-xs bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 px-4 py-2 rounded-full transition-all font-bold shadow-lg flex items-center gap-2 text-white">
+                <span class="text-lg">☕</span>
+                <span>Traktir Kopi</span>
             </a>
-            <button id="installPwaBtn" class="hidden text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors border border-white/20 font-medium">Install PWA</button>
+            <button id="installPwaBtn" class="hidden text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors border border-white/20 font-medium text-white">Install PWA</button>
         </div>
     </header>
 
@@ -135,18 +129,24 @@
 
         <!-- AdSense Compliance Footer -->
         <div class="mt-8 mb-4">
-             <a href="vcmusic.apk" download class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 px-6 py-3 rounded-2xl transition-all border border-white/10 text-sm">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" class="w-5 h-5" alt="Android">
-                <div class="text-left">
-                    <div class="text-[10px] text-white/50 leading-none">Tersedia untuk</div>
-                    <div class="font-bold">Android APK</div>
-                </div>
-             </a>
+            <script>
+                if (!window.isAdsSafeMode) {
+                    document.write(`
+                        <a href="vcmusic.apk" download class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 px-6 py-3 rounded-2xl transition-all border border-white/10 text-sm">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" class="w-5 h-5" alt="Android">
+                            <div class="text-left">
+                                <div class="text-[10px] text-white/50 leading-none">Tersedia untuk</div>
+                                <div class="font-bold">Android APK</div>
+                            </div>
+                        </a>
+                    `);
+                }
+            </script>
         </div>
 
         <!-- SEO Keyword Section -->
         <div class="max-w-xl mx-auto text-white/30 text-[10px] leading-relaxed mb-6 px-4">
-            <p>VCMusic adalah aggregator musik viral terbaik untuk mendengarkan lagu TikTok terbaru 2026, pop Indonesia populer, dangdut koplo bass joss, lofi chill, dan akustik santai gratis. Nikmati fitur background play tanpa henti baik lewat PWA (Web) maupun aplikasi Android APK resmi. Dapatkan pengalaman streaming musik lancar, hemat kuota, dan tanpa lirik untuk fokus maksimal. Solusi musik viral terlengkap untuk kebutuhan editing video, gaming, maupun santai.</p>
+            <p>VCMusic is a personal playlist manager and video discovery tool. Easily organize your favorite music videos, explore trending content, and enjoy a seamless playback experience across devices. Perfect for personal entertainment, focus, and discovering new digital media trends through a lightweight and intuitive interface.</p>
         </div>
 
         <div class="mt-4 pt-6 border-t border-white/10 text-center text-xs text-white/40 flex flex-wrap justify-center gap-x-6 gap-y-2 pb-8 px-4">
@@ -178,12 +178,18 @@
 
     <!-- Sticky Bottom Nav / Web Player -->
     <footer class="fixed bottom-0 w-full z-40 flex flex-col items-center">
-            <!-- Transition Banner (Adsterra Native 4:1) -->
-            <div id="playerBanner" class="w-full flex justify-center mt-2 mb-1">
-                <div class="w-[320px] min-h-[50px] bg-darkSurface/90 backdrop-blur flex items-center justify-center text-xs text-white/30 border border-white/10 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.6)] relative">
-                    <script async="async" data-cfasync="false" src="https://pl28986373.profitablecpmratenetwork.com/8d0836eea7ad1869b6f65d315f41f36e/invoke.js"></script>
-                    <div id="container-8d0836eea7ad1869b6f65d315f41f36e"></div>
-                </div>
+            <!-- Donation Section (Saweria Native-like) -->
+            <div id="donationBanner" class="w-full flex justify-center mt-2 mb-1">
+                <a href="https://saweria.co/vcmusic" target="_blank" class="w-[320px] h-[60px] bg-gradient-to-r from-orange-400/20 to-orange-600/20 backdrop-blur flex items-center justify-between px-4 border border-orange-500/20 rounded-xl overflow-hidden shadow-lg group">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl group-hover:scale-110 transition-transform">☕</div>
+                        <div class="text-left">
+                            <div class="text-[10px] text-orange-400 font-bold uppercase tracking-wider">Dukung Kami</div>
+                            <div class="text-xs font-bold text-white">Traktir Kopi Developer</div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-500 text-white text-[10px] px-2 py-1 rounded-md font-bold">DONASI</div>
+                </a>
             </div>
 
         <!-- Player Container -->
@@ -225,8 +231,13 @@
         </div>
     </footer>
 
-    <!-- Invisible YouTube Player container -->
-    <div id="ytplayer" class="fixed top-0 left-0 w-[1px] h-[1px] opacity-0 pointer-events-none z-[-1]"></div>
+    <!-- Visible YouTube Player (ToS Compliance) -->
+    <div id="ytplayerContainer" class="fixed bottom-24 right-4 z-[30] transition-all duration-300 shadow-2xl rounded-xl overflow-hidden border border-white/10 bg-black">
+        <div id="ytplayer"></div>
+        <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-1 bg-black/50 text-white/50 p-1 rounded-full hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
 
     <!-- iOS Install Prompt Modal -->
     <div id="iosInstallModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex-col justify-center items-center p-4">
@@ -250,24 +261,15 @@
         </div>
     </div>
 
-    <!-- Transition Modal Placeholder (Restored) -->
+    <!-- Success Message Placeholder -->
     <div id="musicTransition" class="fixed inset-0 z-[100] bg-black/95 flex opacity-0 pointer-events-none transition-opacity duration-500 items-center justify-center p-6 backdrop-blur-md">
         <div class="bg-darkSurface border border-white/10 p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl animate-in zoom-in duration-300">
-            <h3 class="text-xl font-bold mb-4">Iklan Bersponsor</h3>
-            <div class="w-full min-h-[250px] bg-white/5 rounded-xl mb-6 flex items-center justify-center text-white/20 border border-dashed border-white/10 relative overflow-hidden">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : 'b4f1c1517db01639cebef38f3ba1911c',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="https://www.highperformanceformat.com/b4f1c1517db01639cebef38f3ba1911c/invoke.js"></script>
+            <h3 class="text-xl font-bold mb-4">Memuat Playlist</h3>
+            <div class="w-full min-h-[100px] flex flex-col items-center justify-center gap-4">
+                <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-sm text-white/50">Menyiapkan pengalaman terbaik untuk Anda...</p>
             </div>
-            <p class="text-sm text-white/50 mb-6">Nikmati musik gratis sepuasnya setelah iklan ini.</p>
-            <button id="closeAdBtn" class="w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors">Tutup Iklan (Gunakan tombol ini)</button>
+            <button id="closeAdBtn" class="w-full mt-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors">Lanjutkan</button>
         </div>
     </div>
 
