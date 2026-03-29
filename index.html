@@ -74,6 +74,14 @@
 </head>
 <body class="bg-darkBackground text-white font-sans antialiased overflow-hidden flex flex-col h-screen">
     
+
+    <!-- Saweria Marquee -->
+    <div id="saweriaMarquee" class="saweria-marquee">
+        <div id="saweriaMarqueeContent" class="saweria-marquee-content">
+            <!-- Items will be injected by JS -->
+        </div>
+    </div>
+
     <header class="p-4 flex justify-between items-center bg-darkBackground/80 backdrop-blur-md z-10 sticky top-0">
         <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent select-none">VCMusic</h1>
         <div class="flex gap-2">
@@ -272,6 +280,10 @@
             <button id="closeAdBtn" class="w-full mt-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors">Lanjutkan</button>
         </div>
     </div>
+
+
+    <!-- Saweria Toast Notifications -->
+    <div id="saweriaToastContainer" class="saweria-toast-container"></div>
 
     <!-- Load YouTube IFrame API -->
     <script src="https://www.youtube.com/iframe_api"></script>

@@ -1,5 +1,5 @@
 /* PWA sw.js */
-const CACHE_NAME = 'viral-music-v18';
+const CACHE_NAME = 'viral-music-v20';
 const ASSETS = [
     './',
     './index.html',

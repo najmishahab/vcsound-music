@@ -10,6 +10,106 @@ const CATEGORIES = [
 
 const YOUTUBE_API_KEY = 'AIzaSyBoSx_gsaxJOtPBPhWiI9cEyXilwKYHmK8';
 
+/**
+ * SaweriaManager handles donation notifications and marquee.
+ */
+class SaweriaManager {
+    constructor() {
+        this.donors = [
+            { name: 'Andi', amount: 'Rp 10.000', msg: 'Semangat terus bang!' },
+            { name: 'Budi', amount: 'Rp 50.000', msg: 'Suka banget sama fiturnya' },
+            { name: 'Cici', amount: 'Rp 5.000', msg: 'Kopi buat dev ❤️' },
+            { name: 'Doni', amount: 'Rp 100.000', msg: 'Gokil aplikasinya' },
+            { name: 'Eka', amount: 'Rp 20.000', msg: 'Bantu up!' }
+        ];
+        this.marqueeEl = document.getElementById('saweriaMarquee');
+        this.marqueeContentEl = document.getElementById('saweriaMarqueeContent');
+        this.toastContainer = document.getElementById('saweriaToastContainer');
+    }
+
+    init() {
+        if (!this.marqueeEl) {
+            console.error("Saweria Marquee element not found!");
+            return;
+        }
+        this.renderMarquee();
+        this.marqueeEl.classList.remove('hidden');
+        
+        // Randomly simulate a "New Donation" toast every 45-90 seconds
+        this.startSimulation();
+    }
+
+    renderMarquee() {
+        if (!this.marqueeContentEl) return;
+        
+        let html = '';
+        // Duplicate donors to ensure smooth infinite loop
+        const displayList = [...this.donors, ...this.donors];
+        
+        displayList.forEach(d => {
+            html += `
+                <div class="saweria-item">
+                    <span class="mr-1">☕</span>
+                    ${d.name} <span>mendukung</span> ${d.amount}
+                </div>
+            `;
+        });
+        
+        this.marqueeContentEl.innerHTML = html;
+        
+        // Adjust animation duration based on content length
+        const duration = displayList.length * 5; 
+        this.marqueeContentEl.style.animationDuration = `${duration}s`;
+    }
+
+    displayAlert(name, amount, msg) {
+        if (!this.toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'saweria-toast';
+        toast.innerHTML = `
+            <div class="saweria-toast-icon">☕</div>
+            <div class="saweria-toast-body">
+                <div class="saweria-toast-name">${name}</div>
+                <div class="saweria-toast-msg">${msg || 'Baru saja nyawer!'}</div>
+            </div>
+            <div class="saweria-toast-amount">${amount}</div>
+        `;
+
+        this.toastContainer.appendChild(toast);
+
+        // Trigger animation
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 600);
+        }, 5000);
+        
+        // Track donation alert event
+        trackEvent('saweria_alert_shown', { donor: name, amount: amount });
+    }
+
+    startSimulation() {
+        const trigger = () => {
+            const delay = Math.floor(Math.random() * 45000) + 45000; // 45-90s
+            this.simTimeout = setTimeout(() => {
+                const randomDonor = this.donors[Math.floor(Math.random() * this.donors.length)];
+                this.displayAlert(randomDonor.name, randomDonor.amount, randomDonor.msg);
+                trigger();
+            }, delay);
+        };
+        
+        // First alert after 10s
+        setTimeout(() => {
+            const d = this.donors[0];
+            this.displayAlert(d.name, d.amount, d.msg);
+            trigger();
+        }, 10000);
+    }
+}
+
 let player;
 let isPlayerReady = false;
 let currentPlaylist = [];
@@ -118,6 +218,11 @@ function onPlayerError(event) {
     setTimeout(playNext, 1000);
 }
 
+// Placeholder for native ads initialization
+async function initNativeAds() {
+    console.log("Initializing Native Ads (Placeholder)...");
+}
+
 // UI Initialization
 document.addEventListener("DOMContentLoaded", async () => {
     if (window.Capacitor && Capacitor.isNativePlatform()) {
@@ -130,6 +235,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // Default Empty State
     document.getElementById('songsList').innerHTML = '<div class="text-center text-white/50 py-10 text-sm">Pilih kategori di atas untuk memuat lagu...</div>';
+
+    // Initialize Saweria Notifications
+    window.saweriaManager = new SaweriaManager();
+    window.saweriaManager.init();
 });
 
     /* 
@@ -685,3 +794,7 @@ async function playShuffle() {
         }
     }
 }
+
+/**
+ * SaweriaManager handles donation notifications and marquee.
+ */
