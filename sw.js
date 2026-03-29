@@ -9,6 +9,7 @@ const ASSETS = [
     './about.html',
     './privacy.html',
     './terms.html',
+    './blog/index.html',
     './assets/icons/icon-192.png',
     './assets/icons/icon-512.png'
 ];
