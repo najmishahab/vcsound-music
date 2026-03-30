@@ -65,19 +65,24 @@ class SaweriaManager {
             this.socket.emit('join-room', { key: this.streamKey });
         });
 
-        this.socket.on('donation', (data) => {
+        // Saweria menggunakan event 'donations' (plural) untuk real-time alert
+        this.socket.on('donations', (data) => {
             console.log("Ada donasi masuk!", data);
             
-            // Parsing data dari event 'donation'
-            const name = data.name || 'Anonim';
-            const amount = 'Rp ' + (data.amount || 0).toLocaleString('id-ID');
-            const msg = data.message || 'Baru saja nyawer!';
-
-            // Tampilkan notifikasi toast
-            this.displayAlert(name, amount, msg);
+            // Pastikan data diproses baik sebagai objek tunggal maupun array
+            const newDonations = Array.isArray(data) ? data : [data];
             
-            // Masukkan ke marquee
-            this.addDonorToHistory({ name, amount, msg });
+            newDonations.forEach(item => {
+                const name = item.name || 'Anonim';
+                const amount = 'Rp ' + (item.amount || 0).toLocaleString('id-ID');
+                const msg = item.message || 'Baru saja nyawer!';
+
+                // Tampilkan notifikasi toast
+                this.displayAlert(name, amount, msg);
+                
+                // Masukkan ke marquee dan leaderboard
+                this.addDonorToHistory({ name, amount, msg });
+            });
         });
 
         this.socket.on('disconnect', () => {
@@ -106,10 +111,11 @@ class SaweriaManager {
         
         let html = '';
         this.donors.slice(0, 5).forEach((d, i) => {
+            const firstChar = (d.name || '?').charAt(0).toUpperCase();
             html += `
-                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-2xl border border-white/5 animate-in slide-in-from-right duration-500 delay-${i * 100}">
+                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-2xl border border-white/5 animate-in slide-in-from-right duration-500 delay-${(i + 1) * 100}">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-orange-500/20">
-                        ${d.name.charAt(0).toUpperCase()}
+                        ${firstChar}
                     </div>
                     <div class="flex-1">
                         <div class="flex justify-between items-center">
@@ -309,6 +315,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Initialize Saweria Notifications
     window.saweriaManager = new SaweriaManager();
     window.saweriaManager.init();
+    console.log("Saweria Manager Initialized & Ready");
 });
 
     /* 
