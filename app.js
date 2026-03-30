@@ -37,6 +37,17 @@ class SaweriaManager {
         this.leaderboardListEl = document.getElementById('leaderboardList');
         this.toastContainer = document.getElementById('saweriaToastContainer');
         this.socket = null;
+        
+        // Versi kode untuk deteksi cache
+        this.version = '1.2.1';
+        console.log(`SaweriaManager v${this.version} Constructor called.`);
+        
+        // Render leaderboard segera jika elemen sudah ada (antisipasi script di bawah body)
+        if (this.leaderboardListEl) {
+            this.renderLeaderboard();
+        } else {
+            console.warn("leaderboardListEl belum tersedia di constructor.");
+        }
     }
 
     init() {
@@ -107,8 +118,12 @@ class SaweriaManager {
     }
 
     renderLeaderboard() {
-        if (!this.leaderboardListEl) return;
+        if (!this.leaderboardListEl) {
+            this.leaderboardListEl = document.getElementById('leaderboardList');
+            if (!this.leaderboardListEl) return;
+        }
         
+        console.log("Rendering leaderboard dengan donor:", this.donors);
         let html = '';
         this.donors.slice(0, 5).forEach((d, i) => {
             const firstChar = (d.name || '?').charAt(0).toUpperCase();
