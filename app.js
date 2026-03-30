@@ -17,9 +17,27 @@ class SaweriaManager {
     constructor() {
         // Stream Key dari dashboard Saweria pengguna
         this.streamKey = '119054db2d9cecb63c76a9992f9fa1d3';
+
+        this.marqueeEl = document.getElementById('saweriaMarquee');
+        this.marqueeContentEl = document.getElementById('saweriaMarqueeContent');
+        this.leaderboardListEl = document.getElementById('leaderboardList');
+        this.toastContainer = document.getElementById('saweriaToastContainer');
+        this.statusInfoEl = document.getElementById('systemInfo');
+        this.socket = null;
         
-        // Ambil riwayat donasi dari localStorage untuk marquee
-        this.donors = JSON.parse(localStorage.getItem('vcmusic_donor_history') || '[]');
+        // Versi kode untuk deteksi cache
+        this.version = '1.2.2';
+        console.log(`SaweriaManager v${this.version} Constructor called.`);
+        
+        // Ambil riwayat donasi dengan sangat aman
+        try {
+            const saved = localStorage.getItem('vcmusic_donor_history');
+            this.donors = (saved && saved !== 'undefined' && saved !== 'null') ? JSON.parse(saved) : [];
+            if (!Array.isArray(this.donors)) this.donors = [];
+        } catch (err) {
+            console.error("Gagal membaca localStorage:", err);
+            this.donors = [];
+        }
         
         // Data bawaan jika belum ada riwayat
         if (this.donors.length === 0) {
@@ -32,22 +50,13 @@ class SaweriaManager {
             ];
         }
 
-        this.marqueeEl = document.getElementById('saweriaMarquee');
-        this.marqueeContentEl = document.getElementById('saweriaMarqueeContent');
-        this.leaderboardListEl = document.getElementById('leaderboardList');
-        this.toastContainer = document.getElementById('saweriaToastContainer');
-        this.socket = null;
-        
-        // Versi kode untuk deteksi cache
-        this.version = '1.2.1';
-        console.log(`SaweriaManager v${this.version} Constructor called.`);
-        
-        // Render leaderboard segera jika elemen sudah ada (antisipasi script di bawah body)
-        if (this.leaderboardListEl) {
-            this.renderLeaderboard();
-        } else {
-            console.warn("leaderboardListEl belum tersedia di constructor.");
+        // Tampilkan indikator status sistem
+        if (this.statusInfoEl) {
+            this.statusInfoEl.textContent = `VCMusic Saweria Module v${this.version} - Ready`;
         }
+        
+        // Render leaderboard segera
+        this.renderLeaderboard();
     }
 
     init() {
