@@ -34,6 +34,7 @@ class SaweriaManager {
 
         this.marqueeEl = document.getElementById('saweriaMarquee');
         this.marqueeContentEl = document.getElementById('saweriaMarqueeContent');
+        this.leaderboardListEl = document.getElementById('leaderboardList');
         this.toastContainer = document.getElementById('saweriaToastContainer');
         this.socket = null;
     }
@@ -97,10 +98,38 @@ class SaweriaManager {
         
         localStorage.setItem('vcmusic_donor_history', JSON.stringify(this.donors));
         this.renderMarquee();
+        this.renderLeaderboard();
+    }
+
+    renderLeaderboard() {
+        if (!this.leaderboardListEl) return;
+        
+        let html = '';
+        this.donors.slice(0, 5).forEach((d, i) => {
+            html += `
+                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-2xl border border-white/5 animate-in slide-in-from-right duration-500 delay-${i * 100}">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-orange-500/20">
+                        ${d.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-bold text-white">${d.name}</span>
+                            <span class="text-[10px] font-bold text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded-full">${d.amount}</span>
+                        </div>
+                        <p class="text-[10px] text-white/50 italic mt-0.5">${d.msg || 'Terima kasih!'}</p>
+                    </div>
+                </div>
+            `;
+        });
+        
+        this.leaderboardListEl.innerHTML = html;
     }
 
     renderMarquee() {
         if (!this.marqueeContentEl) return;
+        
+        // Ensure leaderboard is also updated on first render
+        this.renderLeaderboard();
         
         let html = '';
         // Gandakan list untuk animasi loop yang mulus
