@@ -315,11 +315,13 @@
     <!-- Saweria Toast Notifications -->
     <div id="saweriaToastContainer" class="saweria-toast-container"></div>
 
-    <script src="app.js?v=1.2.3"></script>
+    <!-- Load YouTube IFrame API (ESSENTIAL) -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js?v=1.2.4"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=1.2.3').catch(err => console.log('SW Registration Failed', err));
+                navigator.serviceWorker.register('/sw.js?v=1.2.4').catch(err => console.log('SW Registration Failed', err));
             });
         }
     </script>
