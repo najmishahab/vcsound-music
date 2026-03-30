@@ -29,7 +29,7 @@ class SaweriaManager {
         this.socket = null;
         
         // Versi kode untuk deteksi cache
-        this.version = '1.2.4';
+        this.version = '1.2.5';
         console.log(`SaweriaManager v${this.version} Constructor called.`);
         
         // Ambil riwayat donasi dengan sangat aman
