@@ -21,8 +21,9 @@
     
     <meta name="theme-color" content="#121212">
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.2.3">
     
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -314,16 +315,11 @@
     <!-- Saweria Toast Notifications -->
     <div id="saweriaToastContainer" class="saweria-toast-container"></div>
 
-    <!-- Load Socket.io for Saweria Real-time Alerts -->
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    
-    <!-- Load YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=1.2.3"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Registration Failed', err));
+                navigator.serviceWorker.register('/sw.js?v=1.2.3').catch(err => console.log('SW Registration Failed', err));
             });
         }
     </script>
