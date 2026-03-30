@@ -11,39 +11,99 @@ const CATEGORIES = [
 const YOUTUBE_API_KEY = 'AIzaSyBoSx_gsaxJOtPBPhWiI9cEyXilwKYHmK8';
 
 /**
- * SaweriaManager handles donation notifications and marquee.
+ * SaweriaManager handles real-time donation notifications and marquee.
  */
 class SaweriaManager {
     constructor() {
-        this.donors = [
-            { name: 'Andi', amount: 'Rp 10.000', msg: 'Semangat terus bang!' },
-            { name: 'Budi', amount: 'Rp 50.000', msg: 'Suka banget sama fiturnya' },
-            { name: 'Cici', amount: 'Rp 5.000', msg: 'Kopi buat dev ❤️' },
-            { name: 'Doni', amount: 'Rp 100.000', msg: 'Gokil aplikasinya' },
-            { name: 'Eka', amount: 'Rp 20.000', msg: 'Bantu up!' }
-        ];
+        // Stream Key dari dashboard Saweria pengguna
+        this.streamKey = '119054db2d9cecb63c76a9992f9fa1d3';
+        
+        // Ambil riwayat donasi dari localStorage untuk marquee
+        this.donors = JSON.parse(localStorage.getItem('vcmusic_donor_history') || '[]');
+        
+        // Data bawaan jika belum ada riwayat
+        if (this.donors.length === 0) {
+            this.donors = [
+                { name: 'Andi', amount: 'Rp 10.000', msg: 'Semangat terus bang!' },
+                { name: 'Budi', amount: 'Rp 50.000', msg: 'Suka banget sama fiturnya' },
+                { name: 'Cici', amount: 'Rp 5.000', msg: 'Kopi buat dev ❤️' },
+                { name: 'Doni', amount: 'Rp 100.000', msg: 'Gokil aplikasinya' },
+                { name: 'Eka', amount: 'Rp 20.000', msg: 'Bantu up!' }
+            ];
+        }
+
         this.marqueeEl = document.getElementById('saweriaMarquee');
         this.marqueeContentEl = document.getElementById('saweriaMarqueeContent');
         this.toastContainer = document.getElementById('saweriaToastContainer');
+        this.socket = null;
     }
 
     init() {
-        if (!this.marqueeEl) {
-            console.error("Saweria Marquee element not found!");
-            return;
-        }
+        if (!this.marqueeEl) return;
+        
         this.renderMarquee();
         this.marqueeEl.classList.remove('hidden');
         
-        // Randomly simulate a "New Donation" toast every 45-90 seconds
-        this.startSimulation();
+        // Hubungkan ke server Saweria
+        this.connectToSaweria();
+    }
+
+    connectToSaweria() {
+        if (typeof io === 'undefined') {
+            console.error("Socket.io library belum terload. Cek index.html!");
+            return;
+        }
+
+        console.log("Mencoba menghubungkan ke Saweria...");
+        
+        // Endpoint node Saweria
+        this.socket = io('https://node.saweria.co');
+
+        this.socket.on('connect', () => {
+            console.log("Terhubung ke node Saweria. Bergabung ke room...");
+            this.socket.emit('join-room', { key: this.streamKey });
+        });
+
+        this.socket.on('donation', (data) => {
+            console.log("Ada donasi masuk!", data);
+            
+            // Parsing data dari event 'donation'
+            const name = data.name || 'Anonim';
+            const amount = 'Rp ' + (data.amount || 0).toLocaleString('id-ID');
+            const msg = data.message || 'Baru saja nyawer!';
+
+            // Tampilkan notifikasi toast
+            this.displayAlert(name, amount, msg);
+            
+            // Masukkan ke marquee
+            this.addDonorToHistory({ name, amount, msg });
+        });
+
+        this.socket.on('disconnect', () => {
+            console.log("Terputus dari Saweria node.");
+        });
+
+        this.socket.on('connect_error', (err) => {
+            console.error("Gagal konek ke Saweria:", err);
+        });
+    }
+
+    addDonorToHistory(donor) {
+        // Tambahkan ke daftar paling atas
+        this.donors.unshift(donor);
+        
+        // Simpan hanya 15 donasi terakhir agar tidak lemot
+        if (this.donors.length > 15) this.donors.pop();
+        
+        localStorage.setItem('vcmusic_donor_history', JSON.stringify(this.donors));
+        this.renderMarquee();
     }
 
     renderMarquee() {
         if (!this.marqueeContentEl) return;
         
         let html = '';
-        // Duplicate donors to ensure smooth infinite loop
+        // Gandakan list untuk animasi loop yang mulus
         const displayList = [...this.donors, ...this.donors];
         
         displayList.forEach(d => {
@@ -57,8 +117,8 @@ class SaweriaManager {
         
         this.marqueeContentEl.innerHTML = html;
         
-        // Adjust animation duration based on content length
-        const duration = displayList.length * 5; 
+        // Sesuaikan kecepatan berdasarkan jumlah konten
+        const duration = Math.max(displayList.length * 5, 30); 
         this.marqueeContentEl.style.animationDuration = `${duration}s`;
     }
 
@@ -78,35 +138,16 @@ class SaweriaManager {
 
         this.toastContainer.appendChild(toast);
 
-        // Trigger animation
+        // Munculkan
         setTimeout(() => toast.classList.add('show'), 100);
 
-        // Remove after 5 seconds
+        // Hilangkan setelah 10 detik (lebih lama untuk donasi asli)
         setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 600);
-        }, 5000);
-        
-        // Track donation alert event
-        trackEvent('saweria_alert_shown', { donor: name, amount: amount });
-    }
-
-    startSimulation() {
-        const trigger = () => {
-            const delay = Math.floor(Math.random() * 45000) + 45000; // 45-90s
-            this.simTimeout = setTimeout(() => {
-                const randomDonor = this.donors[Math.floor(Math.random() * this.donors.length)];
-                this.displayAlert(randomDonor.name, randomDonor.amount, randomDonor.msg);
-                trigger();
-            }, delay);
-        };
-        
-        // First alert after 10s
-        setTimeout(() => {
-            const d = this.donors[0];
-            this.displayAlert(d.name, d.amount, d.msg);
-            trigger();
         }, 10000);
+        
+        trackEvent('saweria_real_donation', { donor: name, amount: amount });
     }
 }
 
