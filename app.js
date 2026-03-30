@@ -2,10 +2,13 @@ const CATEGORIES = [
     { id: 'liked', name: 'Favorit Saya', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: '' },
     { id: 'trending', name: 'Video Trending', bg: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'populer hits video terbaru' },
     { id: 'pop', name: 'Indo Pop Hits', bg: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu pop indonesia terbaru hits' },
-    { id: 'calm', name: 'Relaksasi & Fokus', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu santai untuk fokus' },
-    { id: 'koplo', name: 'Vibe Nusantara', bg: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'musik nusantara terbaru viral' },
+    { id: 'tiktok', name: 'DJ TikTok Viral', bg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'dj tiktok viral full bass terbaru' },
+    { id: 'koplo', name: 'Dangdut Koplo', bg: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'dangdut koplo terbaru viral' },
+    { id: 'remix', name: 'Slow Bass Remix', bg: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'slow bass remix viral terbaru' },
+    { id: 'calm', name: 'Relaksasi & Fokus', bg: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu santai untuk fokus belajar' },
     { id: 'acoustic', name: 'Akustik Santai', bg: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'lagu akustik indonesia santai' },
-    { id: 'edm', name: 'Electronic Beats', bg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'electronic dance music hits' }
+    { id: 'edm', name: 'Electronic Beats', bg: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'electronic dance music hits' },
+    { id: 'sholawat', name: 'Sholawat & Religi', bg: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', query: 'sholawat terbaru merdu' }
 ];
 
 const YOUTUBE_API_KEY = 'AIzaSyBoSx_gsaxJOtPBPhWiI9cEyXilwKYHmK8';
