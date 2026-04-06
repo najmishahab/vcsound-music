@@ -366,7 +366,7 @@ async function showNativeBanner() {
     try {
         const { AdMob } = Capacitor.Plugins;
         await AdMob.showBanner({
-            adId: 'ca-app-pub-5834734306217651/9269725861', // Real Banner ID
+            adId: 'ca-app-pub-9637882161685177/9269725861', // Real Banner ID
             position: 'BOTTOM_CENTER',
             size: 'BANNER',
             margin: 0,
