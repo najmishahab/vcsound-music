@@ -12,9 +12,8 @@
         .glass { background: rgba(31, 31, 31, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
     </style>
-    <!-- Google AdSense (DISABLED FOR STEALTH)
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9637882161685177" crossorigin="anonymous"></script>
-    -->
     
     <!-- Alternative Ads Placeholder -->
     <div id="altAdsHead">
@@ -34,31 +33,77 @@
     <h1 class="text-4xl font-bold mb-6 tracking-tight bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent">Contact Us</h1>
     <p class="text-white/70 mb-8">Apakah Anda memiliki pertanyaan tentang platform kami, ingin melaporkan masalah teknis, atau tertarik untuk berkerjasama? Tim kami siap membantu Anda.</p>
     
-    <div class="glass p-8 rounded-3xl shadow-xl flex-1">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="glass p-8 md:p-12 rounded-3xl shadow-xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-                <h2 class="text-xl font-bold mb-4">Informasi Kontak</h2>
-                <p class="text-white/60 text-sm mb-6">Kami biasanya merespons semua email dalam waktu 24-48 jam kerja.</p>
+                <h2 class="text-2xl font-bold mb-6">Informasi Kontak</h2>
+                <p class="text-white/60 text-sm mb-8 leading-relaxed">
+                    Kami senantiasa terbuka untuk masukan, laporan bug, atau tawaran kerjasama. Tim kurator dan pengembang kami biasanya merespons semua email dalam waktu 24-48 jam kerja.
+                </p>
                 
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 bg-pink-500/10 rounded-full flex items-center justify-center text-pink-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 group hover:border-pink-500/30 transition-all">
+                        <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center text-pink-500 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-xs text-white/40">Email Utama</p>
-                            <a href="mailto:admin@vcsound.xyz" class="text-white font-medium hover:text-pink-500 transition-colors">admin@vcsound.xyz</a>
+                            <p class="text-xs text-white/40 mb-1">Email Utama</p>
+                            <a href="mailto:admin@vcsound.xyz" class="text-white font-bold hover:text-pink-500 transition-colors">admin@vcsound.xyz</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 group hover:border-cyan-500/30 transition-all">
+                        <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-500 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-white/40 mb-1">Bantuan Teknis</p>
+                            <p class="text-sm text-white font-medium">Buka tiket bantuan via email untuk masalah pemutaran lagu atau instalasi PWA.</p>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
-                <h3 class="font-bold mb-4">Pesan untuk Kami?</h3>
-                <p class="text-sm text-white/60 leading-relaxed">
-                    Untuk saat ini, silakan hubungi kami melalui alamat email di samping. Pastikan untuk mencantumkan "VCMusic Support" pada subjek email Anda agar kami dapat memprosesnya lebih cepat.
-                </p>
-                <a href="mailto:admin@vcsound.xyz" class="mt-6 block w-full bg-gradient-to-r from-pink-500 to-cyan-500 text-white text-center py-3 rounded-xl font-bold hover:scale-[1.02] transition-transform">Kirim Email Sekarang</a>
+            <div class="space-y-8">
+                <h2 class="text-2xl font-bold">Pesan Cepat</h2>
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500/5 rounded-full blur-3xl"></div>
+                    <p class="text-sm text-white/70 leading-relaxed mb-6">
+                        Pastikan untuk mencantumkan subjek yang jelas seperti <strong>"VCMusic Bug Report"</strong> atau <strong>"Music Partnership"</strong> agar kami dapat memproses pesan Anda dengan prioritas yang tepat.
+                    </p>
+                    <a href="mailto:admin@vcsound.xyz" class="block w-full bg-gradient-to-r from-pink-500 to-cyan-500 text-white text-center py-4 rounded-2xl font-black hover:scale-[1.03] transition-transform shadow-lg shadow-pink-500/20 uppercase tracking-widest text-xs">Kirim Email Sekarang</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="mt-20 pt-12 border-t border-white/10">
+            <h2 class="text-3xl font-black mb-10 text-center">Frequently Asked Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="space-y-4">
+                    <h3 class="font-bold text-pink-500">Bagaimana VCMusic mendapatkan daftar lagu viral?</h3>
+                    <p class="text-sm text-white/60 leading-relaxed">
+                        Kami menggunakan algoritma internal yang memantau metadata dari berbagai platform media sosial dan aggregator video publik. Kurator manusia kami kemudian memvalidasi setiap lagu untuk memastikan kualitas dan relevansi dengan tren saat ini.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-bold text-cyan-500">Apakah VCMusic legal untuk digunakan?</h3>
+                    <p class="text-sm text-white/60 leading-relaxed">
+                        Ya. Kami menggunakan YouTube IFrame API resmi sebagai sumber pemutaran. Hal ini menjamin bahwa setiap pemutaran lagu berkontribusi pada jumlah penayangan (view) resmi dari pemilik hak cipta aslinya.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-bold text-pink-500">Kenapa saya harus menginstal versi PWA?</h3>
+                    <p class="text-sm text-white/60 leading-relaxed">
+                        PWA (Progressive Web App) memungkinkan aplikasi berjalan lebih ringan, lebih cepat, dan mendukung pemutaran di latar belakang (background play) pada banyak perangkat, tanpa menghabiskan ruang penyimpanan seperti aplikasi biasa.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-bold text-cyan-500">Bagaimana jika saya ingin lagu saya ada di VCMusic?</h3>
+                    <p class="text-sm text-white/60 leading-relaxed">
+                        Kami sangat terbuka untuk kreator baru! Silakan kirimkan link karya Anda (YouTube/SoundCloud) ke email kami. Jika sesuai dengan kurasi kami, lagu Anda akan segera tayang di kategori yang relevan.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
